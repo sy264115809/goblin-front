@@ -1,36 +1,55 @@
 <template>
-<div>
-  <app-header></app-header>
-  <div class="clearfix"> </div>
+<div class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-md">
+  <layout-header></layout-header>
+  <div class="clearfix"></div>
   <div class="page-container">
-    <app-sidebar></app-sidebar>
-    <app-content></app-content>
+    <layout-sidebar></layout-sidebar>
+    <layout-content></layout-content>
   </div>
-  <app-footer></app-footer>
+  <layout-footer></layout-footer>
 </div>
 </template>
 
 <script>
-  import appHeader from './header'
-  import appSidebar from './sidebar'
-  import appContent from './content'
-  import appFooter from './footer'
+  // css
+  import '../../assets/metronic/app/css/layout.css'
+  import '../../assets/metronic/app/css/themes/default.css'
 
-  export default {
-    name: 'container',
-    data () {
-      return {}
+  // components
+  import LayoutHeader from './header'
+  import LayoutSidebar from './sidebar'
+  import LayoutContent from './content'
+  import LayoutFooter from './footer'
+
+  // router
+  import Blank from '../pages/blank'
+  var routes = {
+    '': {
+      breadcrumb: 'blank',
+      component: Blank
     },
-    components: {
-      'app-header': appHeader,
-      'app-sidebar': appSidebar,
-      'app-content': appContent,
-      'app-footer': appFooter
+    '/blank': {
+      name: 'blank',
+      breadcrumb: 'blank',
+      component: Blank
     }
   }
-</script>
 
-<style lang="scss">
-  @import "./assets/scss/themes/default.scss";
-  @import "./assets/scss/layout.scss";
-</style>
+  // metronic startup js
+  import App from './assets/js/app'
+  import Layout from './assets/js/layout'
+
+  export default {
+    components: {
+      LayoutHeader,
+      LayoutSidebar,
+      LayoutContent,
+      LayoutFooter
+    },
+    ready () {
+      App.init()
+      Layout.init()
+    },
+    routes
+  }
+</script>

@@ -56,7 +56,7 @@
                   <i class="icon-lock"></i> Lock Screen </a>
               </li>
               <li>
-                <a href="">
+                <a @click="logout">
                   <i class="icon-key"></i> Log Out </a>
               </li>
             </ul>
@@ -72,3 +72,19 @@
 </div>
 <!-- END HEADER -->
 </template>
+
+<script>
+  import store from 'store'
+  import {Toastr} from '../../utils'
+  export default {
+    methods: {
+      logout () {
+        this.$http.post('logout').then((response) => {
+          store.remove('accessToken')
+          Toastr.success('登出成功！')
+          this.$route.router.go({name: 'login'})
+        })
+      }
+    }
+  }
+</script>
