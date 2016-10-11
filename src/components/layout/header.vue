@@ -74,16 +74,14 @@
 </template>
 
 <script>
-  import store from 'store'
+  import auth from '../../services/auth'
   import {Toastr} from '../../utils'
   export default {
     methods: {
       logout () {
-        this.$http.post('logout').then((response) => {
-          store.remove('accessToken')
-          Toastr.success('登出成功！')
-          this.$route.router.go({name: 'login'})
-        })
+        auth.logout()
+        Toastr.success('登出成功！')
+        this.$route.router.go({name: 'login'})
       }
     }
   }

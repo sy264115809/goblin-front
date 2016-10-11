@@ -78,7 +78,7 @@
   import bg3 from './assets/img/bg3.jpg'
   import bg4 from './assets/img/bg4.jpg'
 
-  import store from 'store'
+  import auth from '../../services/auth'
   import {Toastr} from '../../utils'
 
   import LoginBg from './login-bg'
@@ -105,14 +105,12 @@
     methods: {
       onLoginSubmit () {
         this.showLoginAlert = this.$loginValidator.invalid
-
         if (this.$loginValidator.valid) {
-          this.$http.post('login', this.login).then((response) => {
-            store.set('accessToken', response.data.access_token)
-            let goto = this.redirectTo ? {path: this.redirectTo} : {name: 'index'}
-            this.$route.router.go(goto)
-          }, (response) => {
-            if (response.status === 400) {
+          auth.login(this.login).then((success) => {
+            if (success) {
+              Toastr.success('登录成功')
+              this.$route.router.go(this.redirectTo ? {path: this.redirectTo} : {name: 'index'})
+            } else {
               Toastr.warning('用户名或密码不正确！')
             }
           })
@@ -120,28 +118,27 @@
       },
       onResetSubmit () {
         if (this.$forgetValidator.valid) {
-          this.$http.post('password/forget', this.forgetPassword).then((response) => {
-            Toastr.success(`已向您的邮箱 ${this.forgetPassword.email} 发送一封邮件，请登录邮箱根据邮件指示重置您的密码。`)
-          }, (response) => {
-            Toastr.warning('您输入的邮箱不存在')
+          auth.forgetPassword(this.forgetPassword).then((success) => {
+            if (success) {
+              Toastr.success(`已向您的邮箱 ${this.forgetPassword.email} 发送一封邮件，请登录邮箱根据邮件指示重置您的密码。`)
+            } else {
+              Toastr.warning('您输入的邮箱不存在')
+            }
           })
         }
       }
     },
     ready () {
+      // if ?redirect=xxx exists, prompt user the session has been expired
       if (this.$route.query.redirect) {
         this.redirectTo = decodeURIComponent(this.$route.query.redirect)
         Toastr.info('您的会话已过期，请重新登录！')
       }
     },
     route: {
-      activate (t) {
-        if (store.get('accessToken')) {
-          this.$http.post('relogin').then((response) => {
-            store.set('accessToken', response.data.access_token)
-            Toastr.success('重新登录成功！')
-            t.redirect({name: 'index'})
-          })
+      canActivate (t) {
+        if (auth.authentication()) {
+          t.from ? t.abort() : t.go({name: 'index'})
         }
         t.next()
       }

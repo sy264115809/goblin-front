@@ -27,38 +27,38 @@
   }
 
   // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
-  import store from 'store'
+  import auth from '../services/auth'
   var RouterMiddlewares = {
     Auth (transition) {
       if (transition.to.auth) {
-        if (store.get('accessToken')) {
-          transition.next()
-        } else {
+        if (!auth.authentication()) {
           Toastr.info('请您先登录！')
           var redirect = encodeURIComponent(transition.to.path)
           transition.redirect('/login?redirect=' + redirect)
+        } else {
+          auth.relogin()
         }
-      } else {
-        transition.next()
       }
+      transition.next()
     }
   }
 
   import {Toastr} from '../utils'
+  import {router} from '../main'
   var ResourceInterceptors = {
     SetAuthorizationHeader (request, next) {
-      request.headers.set('Authorization', `Bearer ${store.get('accessToken')}`)
+      if (auth.authentication()) {
+        request.headers.set('Authorization', auth.getAuthHeader())
+      }
       next()
     },
-    Handle401 (vueRouter) {
-      return (request, next) => {
-        next((response) => {
-          if (response.status === 401) {
-            store.remove('accessToken')
-            vueRouter.go('login')
-          }
-        })
-      }
+    Handle401 (request, next) {
+      next((response) => {
+        if (response.status === 401) {
+          auth.expired()
+          router.go('login')
+        }
+      })
     },
     Handle403 (request, next) {
       next((response) => {
