@@ -6,10 +6,6 @@
 
 <script>
   export default {
-    name: 'BlankPage',
-    data () {
-      return {}
-    },
     route: {
       activate (t) {
         this.$dispatch('titl-change', 'Blank Page')

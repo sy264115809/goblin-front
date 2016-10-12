@@ -1,62 +1,33 @@
-import store from 'store'
-
 import Vue from 'vue'
-import Router from 'vue-router'
-import VueBreadcrumbs from 'vue-breadcrumbs'
-import VueValidator from 'vue-validator'
 
-Vue.use(Router)
-Vue.use(VueBreadcrumbs)
+// vue validator
+import VueValidator from 'vue-validator'
 Vue.use(VueValidator)
 
-// routing
-let router = new Router()
-
-// 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
-router.beforeEach((transition) => {
-  if (transition.to.auth) {
-    if (store.get('username')) {
-      transition.next()
-    } else {
-      var redirect = encodeURIComponent(transition.to.path)
-      transition.redirect('/login?redirect=' + redirect)
-    }
-  } else {
-    transition.next()
-  }
-})
-
-router.map({
-  '/login': {
-    name: 'login',
-    breadcrumb: 'login',
-    component: function (resolve) {
-      require(['./components/login/login.vue'], resolve)
-    }
-  },
-  '/': {
-    name: 'index',
-    component: function (resolve) {
-      require(['./components/container.vue'], resolve)
-    },
-    auth: true,
-    subRoutes: {
-      '/blank': {
-        name: 'blank',
-        breadcrumb: 'blank',
-        component: function (resolve) {
-          require(['./components/pages/blank.vue'], resolve)
-        }
-      }
-    }
-  }
-})
-
-router.redirect({
-  '*': '/',
-  '/': '/blank'
-})
-
+// vue router
 import App from './components/app'
-// var App = Vue.extend({})
+import {NewRouter} from './router'
+var router = NewRouter(App.routes)
+router.beforeEach(App.RouterMiddlewares.Auth)
+router.redirect({
+  '*': '/'
+})
+export {router}
+
+// vue resource
+import auth from './services/auth'
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
+var http = Vue.http
+http.options.root = 'http://localhost:8898/api/v1'
+http.headers.common['Authorization'] = auth.getAuthHeader()
+http.interceptors.push(
+  App.ResourceInterceptors.SetAuthorizationHeader,
+  App.ResourceInterceptors.Handle401,
+  App.ResourceInterceptors.Handle403,
+  App.ResourceInterceptors.Handle500
+)
+export {http}
+
+// start app
 router.start(App, '#app')
