@@ -1,9 +1,3 @@
-<template>
-  <div>
-    <router-view></router-view>
-  </div>
-</template>
-
 <script>
   // css
   import 'bootstrap/dist/css/bootstrap.css'
@@ -14,34 +8,47 @@
   // router
   import Container from './layout/container'
   import Login from './login/login'
-  var routes = {
-    '/login': {
+
+  import auth from '../services/auth'
+  const routes = [
+    {
+      path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      beforeEnter (to, from, next) {
+        if (auth.authentication()) {
+          from.matched.length ? next(false) : next('/')
+        } else {
+          next()
+        }
+      }
     },
-    '/': {
+    {
+      path: '/',
       name: 'index',
       component: Container,
-      auth: true
-    }
-  }
-
-  // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
-  import auth from '../services/auth'
-  var RouterMiddlewares = {
-    Auth (transition) {
-      if (transition.to.auth) {
+      meta: {
+        breadcrumb: 'index'
+      },
+      // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
+      beforeEnter (to, from, next) {
         if (!auth.authentication()) {
           Toastr.info('请您先登录！')
-          var redirect = encodeURIComponent(transition.to.path)
-          transition.redirect('/login?redirect=' + redirect)
+          next({
+            name: 'login',
+            query: {redirect: to.fullPath}
+          })
         } else {
           auth.relogin()
         }
+        next()
       }
-      transition.next()
+    },
+    {
+      path: '*',
+      redirect: {name: 'login'}
     }
-  }
+  ]
 
   import {Toastr} from '../utils'
   import {router} from '../main'
@@ -56,7 +63,7 @@
       next((response) => {
         if (response.status === 401) {
           auth.expired()
-          router.go('login')
+          router.replace({name: 'login'})
         }
       })
     },
@@ -77,9 +84,8 @@
   }
 
   export default {
-    name: 'app',
+    name: 'App',
     routes,
-    RouterMiddlewares,
     ResourceInterceptors
   }
 </script>

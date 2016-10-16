@@ -297,7 +297,7 @@ var handleFixedSidebarHoverEffect = function () {
 
 // Handles sidebar toggler
 var handleSidebarToggler = function () {
-  var page = $('#app>div');
+  var page = $('body');
   if ($.cookie && $.cookie('sidebar_closed') === '1' && App.getViewPort().width >= resBreakpointMd) {
     page.addClass('page-sidebar-closed');
     $('.page-sidebar-menu').addClass('page-sidebar-menu-closed');

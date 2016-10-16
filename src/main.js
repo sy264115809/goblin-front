@@ -1,16 +1,27 @@
 import Vue from 'vue'
 
-// vue validator
-import VueValidator from 'vue-validator'
-Vue.use(VueValidator)
+// vee validator
+import VeeValidate from 'vee-validate'
+Vue.use(VeeValidate)
 
 // vue router
 import App from './components/app'
 import {NewRouter} from './router'
-var router = NewRouter(App.routes)
-router.beforeEach(App.RouterMiddlewares.Auth)
-router.redirect({
-  '*': '/'
+const router = NewRouter(App.routes)
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.breadcrumb)) {
+    let breadcrumbs = []
+    for (let route of to.matched) {
+      if (route.meta.breadcrumb) {
+        breadcrumbs.push({
+          path: route.path === '' ? '/' : route.path,
+          name: route.meta.breadcrumb
+        })
+      }
+    }
+    to.meta.breadcrumbs = breadcrumbs
+  }
+  next()
 })
 export {router}
 
@@ -30,4 +41,7 @@ http.interceptors.push(
 export {http}
 
 // start app
-router.start(App, '#app')
+new Vue({
+  template: '<router-view></router-view>',
+  router
+}).$mount('#app')

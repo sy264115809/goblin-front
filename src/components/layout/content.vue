@@ -14,27 +14,26 @@
       </div>
       <!-- END PAGE HEAD-->
       <!-- BEGIN PAGE BREADCRUMB -->
-      <ul class="page-breadcrumb breadcrumb" v-if="$breadcrumbs.length">
-        <template v-for="(i, crumb) in $breadcrumbs">
-          <template v-if="i != $breadcrumbs.length - 1">
+      <ul class="page-breadcrumb breadcrumb" v-if="$route.meta.breadcrumbs.length">
+        <template v-for="(crumb, i) in $route.meta.breadcrumbs">
+          <template v-if="i != $route.meta.breadcrumbs.length - 1">
             <li>
-              <a v-link="crumb.handler.path">{{ crumb.handler.breadcrumb }}</a>
+              <router-link :to="crumb.path">{{ crumb.name }}</router-link>
               <i class="fa fa-circle"></i>
             </li>
           </template>
           <template v-else>
-            <span class="active">{{ crumb.handler.breadcrumb }}</span>
+            <span class="active">{{ crumb.name }}</span>
           </template>
         </template>
       </ul>
       <!-- END PAGE BREADCRUMB -->
       <!-- BEGIN PAGE BASE CONTENT -->
-      <router-view
-      @titl-change="changeTitle"
-      keep-alive
-      transition
-      transition-mode="out-in">
-      </router-view>
+      <transition name="fade">
+        <keep-alive>
+          <router-view @title-change="changeTitle"></router-view>
+        </keep-alive>
+      </transition>
       <!-- END PAGE BASE CONTENT -->
     </div>
     <!-- END CONTENT BODY -->

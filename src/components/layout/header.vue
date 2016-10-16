@@ -6,7 +6,7 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
       <a href="index.html">
-        <img src="assets/img/logo.png" alt="logo" class="logo-default">
+        <img src="./assets/img/logo.png" alt="logo" class="logo-default">
       </a>
       <div class="menu-toggler sidebar-toggler">
         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -28,7 +28,7 @@
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
               <span class="username username-hide-on-mobile"> Nick </span>
               <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-              <img alt="" class="img-circle" src="assets/img/avatar.png" /> </a>
+              <img alt="" class="img-circle" src="./assets/img/avatar.png" /> </a>
             <ul class="dropdown-menu dropdown-menu-default">
               <li>
                 <a href="">
@@ -81,7 +81,7 @@
       logout () {
         auth.logout()
         Toastr.success('登出成功！')
-        this.$route.router.go({name: 'login'})
+        this.$router.push({name: 'login'})
       }
     }
   }

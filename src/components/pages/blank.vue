@@ -6,11 +6,11 @@
 
 <script>
   export default {
-    route: {
-      activate (t) {
-        this.$dispatch('titl-change', 'Blank Page')
-        t.next()
-      }
+    name: 'Blank',
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        vm.$emit('title-change', 'Blank Page')
+      })
     }
   }
 </script>

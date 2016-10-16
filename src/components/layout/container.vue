@@ -23,32 +23,40 @@
 
   // router
   import Blank from '../pages/blank'
-  var routes = {
-    '': {
-      breadcrumb: 'blank',
-      component: Blank
+  let routes = [
+    {
+      path: '',
+      redirect: {name: 'blank'}
     },
-    '/blank': {
+    {
+      path: '/blank',
       name: 'blank',
-      breadcrumb: 'blank',
-      component: Blank
+      component: Blank,
+      meta: {
+        breadcrumb: 'blank'
+      }
     }
-  }
+  ]
 
   // metronic startup js
   import App from './assets/js/app'
   import Layout from './assets/js/layout'
 
+  import auth from '../../services/auth'
   export default {
+    name: 'LayoutContainer',
     components: {
       LayoutHeader,
       LayoutSidebar,
       LayoutContent,
       LayoutFooter
     },
-    ready () {
-      App.init()
-      Layout.init()
+    mounted () {
+      this.$nextTick(() => {
+        App.init()
+        Layout.init()
+        setInterval(() => auth.relogin(), 10 * 60 * 1000)
+      })
     },
     routes
   }
