@@ -1,16 +1,13 @@
 <template>
 <div class="note note-info">
-  <p> A blank page template with a minimal dependency assets to use as a base for any custom page you create </p>
+  <p> 这是一个仅供展示的空白页。 </p>
 </div>
 </template>
 
 <script>
+  import {emitTitleChanged} from './helper'
   export default {
     name: 'Blank',
-    beforeRouteEnter (to, from, next) {
-      next(vm => {
-        vm.$emit('title-change', 'Blank Page')
-      })
-    }
+    beforeRouteEnter: emitTitleChanged('空白页')
   }
 </script>

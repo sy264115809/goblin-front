@@ -29,11 +29,11 @@
       redirect: {name: 'blank'}
     },
     {
-      path: '/blank',
+      path: 'blank',
       name: 'blank',
       component: Blank,
       meta: {
-        breadcrumb: 'blank'
+        breadcrumb: '空白页'
       }
     }
   ]

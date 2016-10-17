@@ -12,7 +12,7 @@
   import auth from '../services/auth'
   const routes = [
     {
-      path: '/login',
+      path: 'login',
       name: 'login',
       component: Login,
       beforeEnter (to, from, next) {
@@ -24,11 +24,11 @@
       }
     },
     {
-      path: '/',
+      path: '',
       name: 'index',
       component: Container,
       meta: {
-        breadcrumb: 'index'
+        breadcrumb: '首页'
       },
       // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
       beforeEnter (to, from, next) {
