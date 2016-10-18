@@ -110,7 +110,7 @@
           auth.login(this.login).then((success) => {
             if (success) {
               Toastr.success('登录成功')
-              this.$router.push(this.redirectTo ? {path: this.redirectTo} : {name: 'index'})
+              this.$router.push(this.redirectTo ? this.redirectTo : '/')
             } else {
               Toastr.warning('用户名或密码不正确！')
             }
@@ -119,7 +119,7 @@
       },
       onResetSubmit () {
         this.$validator.validateAll('forget-form')
-        if (this.errors.any('forget-form')) {
+        if (!this.errors.any('forget-form')) {
           auth.forgetPassword(this.forgetPassword).then((success) => {
             if (success) {
               Toastr.success(`已向您的邮箱 ${this.forgetPassword.email} 发送一封邮件，请登录邮箱根据邮件指示重置您的密码。`)
