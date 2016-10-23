@@ -84,7 +84,6 @@
 
   import {Toastr} from '../../utils'
 
-  import {emitTitleChanged} from '../helper'
   import airportsApi from './services'
   export default {
     name: 'Airports',
@@ -206,7 +205,6 @@
     },
     mounted () {
       this.listAirports()
-    },
-    beforeRouteEnter: emitTitleChanged('机场信息管理')
+    }
   }
 </script>

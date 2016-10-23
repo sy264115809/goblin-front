@@ -4,7 +4,7 @@
   <div class="clearfix"></div>
   <div class="page-container">
     <layout-sidebar></layout-sidebar>
-    <layout-content></layout-content>
+    <layout-content :title="title"></layout-content>
   </div>
   <layout-footer></layout-footer>
 </div>
@@ -22,7 +22,11 @@
   import LayoutFooter from './Footer.vue'
 
   // router
-  import Blank from '../Blank.vue'
+  let Blank = {
+    name: 'Blank',
+    template: '<div class="note note-info"><p>这是一个仅供展示的空白页。</p></div>'
+  }
+
   import Airpotrs from '../airports/Airports.vue'
   let routes = [
     {
@@ -60,12 +64,30 @@
       LayoutContent,
       LayoutFooter
     },
+    data () {
+      return {
+        title: ''
+      }
+    },
+    created () {
+      this.setTitle()
+      setInterval(() => auth.relogin(), 10 * 60 * 1000)
+    },
+    watch: {
+      '$route': 'setTitle'
+    },
     mounted () {
       this.$nextTick(() => {
         App.init()
         Layout.init()
-        setInterval(() => auth.relogin(), 10 * 60 * 1000)
       })
+    },
+    methods: {
+      setTitle () {
+        if (this.$route.meta.breadcrumb) {
+          this.title = this.$route.meta.breadcrumb
+        }
+      }
     },
     routes
   }

@@ -31,7 +31,7 @@
       <!-- BEGIN PAGE BASE CONTENT -->
       <transition name="fade">
         <keep-alive>
-          <router-view @title-change="changeTitle"></router-view>
+          <router-view></router-view>
         </keep-alive>
       </transition>
       <!-- END PAGE BASE CONTENT -->
@@ -42,14 +42,10 @@
 
 <script>
   export default{
-    data () {
-      return {
-        title: ''
-      }
-    },
-    methods: {
-      changeTitle (title) {
-        this.title = title
+    props: {
+      title: {
+        type: String,
+        required: true
       }
     }
   }
