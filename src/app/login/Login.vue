@@ -77,7 +77,7 @@
   import auth from '../auth'
   import {Toastr} from '../../utils'
 
-  import LoginBg from './login-bg'
+  import LoginBg from './LoginBg.vue'
 
   export default {
     name: 'Login',

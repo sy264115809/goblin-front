@@ -16,14 +16,14 @@
   import '../../assets/metronic/app/css/themes/default.css'
 
   // components
-  import LayoutHeader from './header'
-  import LayoutSidebar from './sidebar'
-  import LayoutContent from './content'
-  import LayoutFooter from './footer'
+  import LayoutHeader from './Header.vue'
+  import LayoutSidebar from './Sidebar.vue'
+  import LayoutContent from './Content.vue'
+  import LayoutFooter from './Footer.vue'
 
   // router
-  import Blank from '../pages/blank'
-  import Airpotrs from '../pages/airports/airports'
+  import Blank from '../Blank.vue'
+  import Airpotrs from '../airports/Airports.vue'
   let routes = [
     {
       path: '',

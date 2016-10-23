@@ -5,11 +5,11 @@ import VeeValidate from 'vee-validate'
 Vue.use(VeeValidate)
 
 // global components
-import ladda from './components/ladda/ladda'
+import ladda from './components/Ladda.vue'
 Vue.component('ladda', ladda)
 
 // vue router
-import App from './components/app'
+import App from './app/App.vue'
 import {NewRouter} from './router'
 const router = NewRouter(App.routes)
 router.beforeEach((to, from, next) => {

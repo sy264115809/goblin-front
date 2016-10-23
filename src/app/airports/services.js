@@ -1,4 +1,4 @@
-import {http} from '../../../main'
+import {http} from '../../main'
 export default {
   create ({name, description}) {
     return http.post('airports', {name, description}).then(response => response.data.id, () => false)

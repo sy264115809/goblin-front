@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import Modal from '../../modal/modal'
+  import Modal from '../../components/Modal.vue'
   export default {
     components: {
       Modal

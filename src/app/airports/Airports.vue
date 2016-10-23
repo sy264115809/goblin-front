@@ -79,10 +79,10 @@
 </template>
 
 <script>
-  import Modal from '../../modal/modal'
-  import FormModal from './form-modal'
+  import Modal from '../../components/Modal.vue'
+  import FormModal from './FormModal.vue'
 
-  import {Toastr} from '../../../utils'
+  import {Toastr} from '../../utils'
 
   import {emitTitleChanged} from '../helper'
   import airportsApi from './services'

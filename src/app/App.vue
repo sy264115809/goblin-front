@@ -6,8 +6,8 @@
   import '../assets/metronic/global/css/components-md.css'
 
   // router
-  import Container from './layout/container'
-  import Login from './login/login'
+  import Container from './layout/Container.vue'
+  import Login from './login/Login.vue'
 
   import auth from './auth'
   const routes = [
