@@ -28,6 +28,7 @@
   }
 
   import Airpotrs from '../airports/Airports.vue'
+  import Pickups from '../pickups/Pickups.vue'
   let routes = [
     {
       path: '',
@@ -47,6 +48,14 @@
       component: Airpotrs,
       meta: {
         breadcrumb: '机场信息'
+      }
+    },
+    {
+      path: 'pickups',
+      name: 'pickups',
+      component: Pickups,
+      meta: {
+        breadcrumb: '集散点信息'
       }
     }
   ]

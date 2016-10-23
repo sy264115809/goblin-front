@@ -60,6 +60,12 @@
                                 <span class="title">机场信息</span>
                             </router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link :to="{name: 'pickups'}">
+                                <i class="icon-flag"></i>
+                                <span class="title">集散点信息</span>
+                            </router-link>
+                        </li>
                     </ul>
                 </li>
             </ul>
