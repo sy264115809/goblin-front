@@ -12,95 +12,53 @@
             <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
             <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
             <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <li class="nav-item start ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-home"></i>
-                        <span class="title">Dashboard</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item start ">
-                            <a href="index.html" class="nav-link ">
-                                <i class="icon-bar-chart"></i>
-                                <span class="title">Dashboard 1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="dashboard_2.html" class="nav-link ">
-                                <i class="icon-bulb"></i>
-                                <span class="title">Dashboard 2</span>
-                                <span class="badge badge-success">1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="dashboard_3.html" class="nav-link ">
-                                <i class="icon-graph"></i>
-                                <span class="title">Dashboard 3</span>
-                                <span class="badge badge-danger">5</span>
-                            </a>
-                        </li>
-                    </ul>
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <li class="nav-item start">
+                    <router-link to="/">
+                      <i class="icon-home"></i>
+                      <span class="title">首页</span>
+                    </router-link>
                 </li>
                 <li class="heading">
-                    <h3 class="uppercase">Features</h3>
+                    <h3 class="uppercase">Group</h3>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-briefcase"></i>
-                        <span class="title">Tables</span>
+                        <span class="title">1st Level</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item  ">
-                            <a href="table_static_basic.html" class="nav-link ">
-                                <span class="title">Basic Tables</span>
+                        <li class="nav-item">
+                            <a class="nav-link ">
+                                <span class="title">2nd Normal</span>
                             </a>
                         </li>
-                        <li class="nav-item  ">
-                            <a href="table_static_responsive.html" class="nav-link ">
-                                <span class="title">Responsive Tables</span>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="table_bootstrap.html" class="nav-link ">
-                                <span class="title">Bootstrap Tables</span>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
+                        <li class="nav-item">
                             <a href="javascript:;" class="nav-link nav-toggle">
-                                <span class="title">Datatables</span>
+                                <span class="title">2nd Toggle</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item ">
-                                    <a href="table_datatables_managed.html" class="nav-link "> Managed Datatables </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_buttons.html" class="nav-link "> Buttons Extension </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_colreorder.html" class="nav-link "> Colreorder Extension </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_rowreorder.html" class="nav-link "> Rowreorder Extension </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_scroller.html" class="nav-link "> Scroller Extension </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_fixedheader.html" class="nav-link "> FixedHeader Extension </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_responsive.html" class="nav-link "> Responsive Extension </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_editable.html" class="nav-link "> Editable Datatables </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="table_datatables_ajax.html" class="nav-link "> Ajax Datatables </a>
+                                <li class="nav-item">
+                                    <a class="nav-link "> 3rd Level </a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-info"></i>
+                        <span class="title">基础信息</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <router-link :to="{name: 'airports'}">
+                                <i class="icon-plane"></i>
+                                <span class="title">机场信息</span>
+                            </router-link>
                         </li>
                     </ul>
                 </li>

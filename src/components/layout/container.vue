@@ -23,6 +23,7 @@
 
   // router
   import Blank from '../pages/blank'
+  import Airpotrs from '../pages/airports/airports'
   let routes = [
     {
       path: '',
@@ -34,6 +35,14 @@
       component: Blank,
       meta: {
         breadcrumb: '空白页'
+      }
+    },
+    {
+      path: 'airports',
+      name: 'airports',
+      component: Airpotrs,
+      meta: {
+        breadcrumb: '机场信息'
       }
     }
   ]
