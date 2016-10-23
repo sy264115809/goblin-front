@@ -28,20 +28,8 @@
       name: 'index',
       component: Container,
       meta: {
+        requiresAuth: true,
         breadcrumb: '首页'
-      },
-      // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
-      beforeEnter (to, from, next) {
-        if (!auth.authentication()) {
-          Toastr.info('请您先登录！')
-          next({
-            name: 'login',
-            query: {redirect: to.fullPath}
-          })
-        } else {
-          auth.relogin()
-        }
-        next()
       }
     },
     {
@@ -83,9 +71,44 @@
     }
   }
 
+  var RouterBeforeEach = {
+    // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
+    HandleAuth (to, from, next) {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!auth.authentication()) {
+          Toastr.info('请您先登录！')
+          next({
+            name: 'login',
+            query: {redirect: to.fullPath}
+          })
+        } else {
+          auth.relogin()
+        }
+      }
+      next()
+    },
+    // 面包屑处理中间件，为面包屑附带路由信息
+    HandleBreadcrumbs (to, from, next) {
+      if (to.matched.some(record => record.meta.breadcrumb)) {
+        let breadcrumbs = []
+        for (let route of to.matched) {
+          if (route.meta.breadcrumb) {
+            breadcrumbs.push({
+              path: route.path === '' ? '/' : route.path,
+              name: route.meta.breadcrumb
+            })
+          }
+        }
+        to.meta.breadcrumbs = breadcrumbs
+      }
+      next()
+    }
+  }
+
   export default {
     name: 'App',
     routes,
-    ResourceInterceptors
+    ResourceInterceptors,
+    RouterBeforeEach
   }
 </script>

@@ -45,6 +45,8 @@ export default {
       if (moment().add(10, 'm').isAfter(expiredAt)) {
         console.log('try to relogin sincec token will be expired after 10 minutes')
         return http.post(RELOGIN_URL).then(response => setToken(response.data.access_token), () => false)
+      } else {
+        console.log('no need relogin')
       }
     }
   },

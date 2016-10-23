@@ -12,21 +12,8 @@ Vue.component('ladda', ladda)
 import App from './app/App.vue'
 import {NewRouter} from './router'
 const router = NewRouter(App.routes)
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.breadcrumb)) {
-    let breadcrumbs = []
-    for (let route of to.matched) {
-      if (route.meta.breadcrumb) {
-        breadcrumbs.push({
-          path: route.path === '' ? '/' : route.path,
-          name: route.meta.breadcrumb
-        })
-      }
-    }
-    to.meta.breadcrumbs = breadcrumbs
-  }
-  next()
-})
+router.beforeEach(App.RouterBeforeEach.HandleAuth)
+router.beforeEach(App.RouterBeforeEach.HandleBreadcrumbs)
 export {router}
 
 // vue resource
