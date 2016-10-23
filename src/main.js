@@ -4,6 +4,10 @@ import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 Vue.use(VeeValidate)
 
+// global components
+import ladda from './components/ladda/ladda'
+Vue.component('ladda', ladda)
+
 // vue router
 import App from './components/app'
 import {NewRouter} from './router'
