@@ -33,7 +33,7 @@ export {router}
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 var http = Vue.http
-http.options.root = 'http://localhost:8898/api/v1'
+http.options.root = '/api'
 http.interceptors.push(
   App.ResourceInterceptors.SetAuthorizationHeader,
   App.ResourceInterceptors.Handle401,
