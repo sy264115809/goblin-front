@@ -52,8 +52,8 @@ export default {
   },
 
   logout () {
-    this.expired()
     http.post(LOGOUT_URL)
+    this.expired()
   },
 
   expired () {

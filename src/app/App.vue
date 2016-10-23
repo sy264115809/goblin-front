@@ -40,7 +40,7 @@
 
   import {Toastr} from '../utils'
   import {router} from '../main'
-  var ResourceInterceptors = {
+  const ResourceInterceptors = {
     SetAuthorizationHeader (request, next) {
       if (auth.authentication()) {
         request.headers.set('Authorization', auth.getAuthHeader())
@@ -59,19 +59,20 @@
       next((response) => {
         if (response.status === 403) {
           Toastr.warning('您没有权限！')
+          router.push('/')
         }
       })
     },
     Handle500 (request, next) {
       next((response) => {
-        if (response.status === 403) {
+        if (response.status === 500) {
           Toastr.error('服务器出现了错误，请稍后再试~')
         }
       })
     }
   }
 
-  var RouterBeforeEach = {
+  const BeforeEachCallbacks = {
     // 登录验证中间件，页面需要登录而没有登录的情况直接跳转登录
     HandleAuth (to, from, next) {
       if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -105,10 +106,22 @@
     }
   }
 
+  const RouterSettings = {
+    routes,
+    BeforeEachCallbacks: [
+      BeforeEachCallbacks.HandleAuth,
+      BeforeEachCallbacks.HandleBreadcrumbs
+    ]
+  }
+
   export default {
     name: 'App',
-    routes,
-    ResourceInterceptors,
-    RouterBeforeEach
+    RouterSettings,
+    ResourceInterceptors: [
+      ResourceInterceptors.SetAuthorizationHeader,
+      ResourceInterceptors.Handle401,
+      ResourceInterceptors.Handle403,
+      ResourceInterceptors.Handle500
+    ]
   }
 </script>

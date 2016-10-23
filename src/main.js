@@ -11,23 +11,11 @@ Vue.component('ladda', ladda)
 // vue router
 import App from './app/App.vue'
 import {NewRouter} from './router'
-const router = NewRouter(App.routes)
-router.beforeEach(App.RouterBeforeEach.HandleAuth)
-router.beforeEach(App.RouterBeforeEach.HandleBreadcrumbs)
-export {router}
+export const router = NewRouter(App.RouterSettings.routes, App.RouterSettings.BeforeEachCallbacks)
 
 // vue resource
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
-var http = Vue.http
-http.options.root = '/api'
-http.interceptors.push(
-  App.ResourceInterceptors.SetAuthorizationHeader,
-  App.ResourceInterceptors.Handle401,
-  App.ResourceInterceptors.Handle403,
-  App.ResourceInterceptors.Handle500
-)
-export {http}
+import {NewHttp} from './http'
+export const http = NewHttp(App.ResourceInterceptors, 'api')
 
 // start app
 new Vue({

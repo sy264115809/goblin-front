@@ -14,11 +14,16 @@ function ResolveRoutes (routes) {
   return routes
 }
 
-export function NewRouter (routes, mode = 'history', base = '/', linkActiveClass = 'router-link-active') {
-  return new VueRouter({
+export function NewRouter (routes, beforeEach = [], afterEach = [], mode = 'history', base = '/', linkActiveClass = 'router-link-active') {
+  let router = new VueRouter({
     mode,
     base,
     linkActiveClass,
     routes: ResolveRoutes(routes)
   })
+
+  beforeEach.forEach((fn) => router.beforeEach(fn))
+  afterEach.forEach((fn) => router.afterEach(fn))
+
+  return router
 }
