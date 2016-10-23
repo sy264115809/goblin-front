@@ -9,7 +9,7 @@
   import Container from './layout/container'
   import Login from './login/login'
 
-  import auth from '../services/auth'
+  import auth from './auth'
   const routes = [
     {
       path: 'login',

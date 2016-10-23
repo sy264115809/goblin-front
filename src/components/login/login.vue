@@ -74,7 +74,7 @@
   import bg3 from './assets/img/bg3.jpg'
   import bg4 from './assets/img/bg4.jpg'
 
-  import auth from '../../services/auth'
+  import auth from '../auth'
   import {Toastr} from '../../utils'
 
   import LoginBg from './login-bg'

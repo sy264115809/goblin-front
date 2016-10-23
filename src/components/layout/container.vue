@@ -42,7 +42,7 @@
   import App from './assets/js/app'
   import Layout from './assets/js/layout'
 
-  import auth from '../../services/auth'
+  import auth from '../auth'
   export default {
     name: 'LayoutContainer',
     components: {

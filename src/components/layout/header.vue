@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import auth from '../../services/auth'
+  import auth from '../auth'
   import {Toastr} from '../../utils'
   export default {
     methods: {
