@@ -29,6 +29,7 @@
 
   import Airpotrs from '../airports/Airports.vue'
   import Pickups from '../pickups/Pickups.vue'
+  import Tours from '../tours/Index.vue'
   let routes = [
     {
       path: '',
@@ -56,6 +57,14 @@
       component: Pickups,
       meta: {
         breadcrumb: '集散点信息'
+      }
+    },
+    {
+      path: 'tours',
+      name: 'tours',
+      component: Tours,
+      meta: {
+        breadcrumb: '旅游产品'
       }
     }
   ]

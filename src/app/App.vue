@@ -5,6 +5,9 @@
   import 'simple-line-icons/css/simple-line-icons.css'
   import '../assets/metronic/global/css/components-md.css'
 
+  // css for vue transition
+  import 'vue2-animate/dist/vue2-animate.min.css'
+
   // router
   import Container from './layout/Container.vue'
   import Login from './login/Login.vue'

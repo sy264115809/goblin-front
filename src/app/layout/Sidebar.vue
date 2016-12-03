@@ -68,6 +68,21 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-grid"></i>
+                        <span class="title">产品信息</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <router-link to="/tours">
+                                <i class="icon-compass"></i>
+                                <span class="title">旅游产品</span>
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>
